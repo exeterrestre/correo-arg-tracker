@@ -4,7 +4,11 @@ const nodemailer = require('nodemailer');
 let lastStatus = '';
 
 async function scrapeStatus(trackingNumber) {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
 
     await page.goto('https://www.correoargentino.com.ar/formularios/e-commerce', { waitUntil: 'networkidle2' });
@@ -52,7 +56,7 @@ async function sendEmail(to, subject, text) {
     });
 }
 
-async function  checkStatus(trackingNumber, email) {
+async function checkStatus(trackingNumber, email) {
     try {
         const { status, movimientos } = await scrapeStatus(trackingNumber);
         console.log('Último estado:', status);
