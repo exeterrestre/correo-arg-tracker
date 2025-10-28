@@ -9,7 +9,7 @@ app.use(express.json());
 
 let trackingNumber = '00011079989791II1A51401';
 let emailToNotify = 'fransappia01@gmail.com';
-let intervalMinutes = 20;
+let intervalMinutes = 5;
 
 app.get('/track/:id', async (req, res) => {
     const trackingNumber = req.params.id;
